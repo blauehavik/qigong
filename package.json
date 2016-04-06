@@ -1,0 +1,35 @@
+{
+  "name": "qigong",
+  "version": "1.0.0",
+  "description": "Isaac Freed website",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.9.8"
+  },
+  "keywords": [
+    "qi",
+    "gong",
+    "isaac",
+    "freed"
+  ],
+  "author": "david vondracek",
+  "license": "MIT",
+  "engines": {
+    "node": "5.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blauehavik/qigong"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT",
+  "devDependencies": {}
+}

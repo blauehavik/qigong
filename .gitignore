@@ -31,3 +31,10 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+#env local
+.env
+
+# SublimeText 2
+*.sublime-project
+*.sublime-workspace
