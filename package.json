@@ -28,7 +28,6 @@
     "express"
   ],
   "license": "MIT",
-  "devDependencies": {}
   "version": "0.0.0",
   "private": true,
   "dependencies": {
