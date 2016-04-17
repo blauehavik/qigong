@@ -1,0 +1,87 @@
+extends ../../layouts/default
+
+block content
+  .container-fluid.container-max
+    .page-header
+      h1 Billing 
+        small /views/dashboard/billing
+    // include "../partials/flash.html" %}
+    .page-header
+      h3 Subscription
+    form.form-horizontal(id="#{!user.stripe.last4 ? 'cardForm' : ''}", action='/user/plan', method='POST')
+      .form-group
+        label.col-sm-3.control-label(for='plan') Plan
+        .col-sm-4
+          for plan in plans
+            .radio
+              label
+                input(type='radio',  name='plan', value='#{plan.name}', data-toggle='radio', checked=(user.stripe.plan === plan.name.toLowerCase()? "checked" : undefined))
+                span #{plan.name} - $#{plan.price} 
+      if !user.stripe.last4
+        #cardWrapper
+          .form-group
+            label.col-sm-3.control-label Test Card Info
+            .col-sm-7
+              .form-control-static
+                | 4242424242424242, 11/19, 123 - 
+                a(href='https://stripe.com/docs/testing') additional test info
+          .form-group
+            label.col-sm-3.control-label Card Number
+            .col-sm-4
+              input#card-num.form-control(type='text')
+          .form-group
+            label.col-sm-3.control-label Card Details
+            .col-sm-4
+              .row
+                .col-xs-4
+                  input#card-month.form-control(type='text', size='2', maxlength='2', placeholder='MM')
+                .col-xs-4
+                  input#card-year.form-control(type='text', size='2', maxlength='2', placeholder='YY')
+                .col-xs-4
+                  input#card-cvc.form-control(type='text', size='3', maxlength='3', placeholder='CVC')
+          .form-group
+            .col-sm-6
+              #cardFormError.alert.alert-danger.hidden(role='alert')
+                p #{error}
+      .form-group
+        .col-sm-offset-3.col-sm-4
+          button.btn.btn-primary(type='submit') Update Plan
+    if user.stripe.last4
+      .page-header
+        h3 Payment Details
+      form#cardForm.form-horizontal(role='form', action='/user/billing', method='POST')
+        .form-group
+          label.col-sm-3.control-label Test Card Info
+          .col-sm-7
+            .form-control-static
+              | 4242424242424242, 11/19, 123 - 
+              a(href='https://stripe.com/docs/testing') additional test cards
+        .form-group
+          label.col-sm-3.control-label Card Number
+          .col-sm-4
+            input#card-num.form-control(type='text', placeholder='XXXX XXXX XXXX #{user.stripe.last4}')
+        .form-group
+          label.col-sm-3.control-label Card Details
+          .col-sm-4
+            .row
+              .col-xs-4
+                input#card-month.form-control(type='text', size='2', maxlength='2', placeholder='MM')
+              .col-xs-4
+                input#card-year.form-control(type='text', size='2', maxlength='2', placeholder='YY')
+              .col-xs-4
+                input#card-cvc.form-control(type='text', size='3', maxlength='3', placeholder='CVC')
+        .form-group
+          .col-sm-6
+            #cardFormError.alert.alert-danger.hidden(role='alert')
+              p #{error}
+        .form-group
+          .col-sm-offset-3.col-sm-4
+            button.btn.btn-primary(type='submit') Update Card
+    .page-header
+      h3 Delete Account
+    form.form-horizontal(action='/user/delete', method='POST')
+      .form-group
+        .col-sm-offset-3.col-sm-4
+          button.btn.btn-danger(type='submit')
+            span.ion-edit
+            | Delete Account

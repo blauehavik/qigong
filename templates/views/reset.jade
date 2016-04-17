@@ -1,0 +1,15 @@
+extends ../layouts/default
+
+block content
+
+  .container(style='max-width: 400px;')
+    form(action='/reset/#{token}', method='POST')
+      h2 Reset Password
+      p
+        | New Password
+        input.form-control(type='password', name='password', placeholder='New Password', autofocus='')
+      p
+        | Confirm Password
+        input.form-control(type='password', name='confirm', placeholder='Confirm Password')
+      button.btn.btn-lg.btn-primary.btn-block(type='submit') Change Password
+

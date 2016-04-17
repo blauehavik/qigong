@@ -1,0 +1,79 @@
+extends ../../layouts/default
+block content
+  .container-fluid.container-max
+    .page-header
+      h1 Home 
+        small /views/dashboard/index
+    //include ../partials/flash.jade
+    .page-header
+      h3 Profile
+    form.form-horizontal(action='/user', method='POST')
+      .form-group
+        label.col-sm-3.control-label(for='email') Email
+        .col-sm-4
+          input#email.form-control(type='email', name='email', value='#{user.email}')
+      .form-group
+        label.col-sm-3.control-label(for='name') Name
+        .col-sm-4
+          input#name.form-control(type='text', name='name', value='#{user.profile.name}')
+      .form-group
+        label.col-sm-3.control-label(for='name') Customer ID
+        .col-sm-4
+          .form-control-static
+            | #{user.stripe.customerId}
+      .form-group
+        label.col-sm-3.control-label(for='name') Plan
+        .col-sm-4
+          p.form-control-static #{plans[user.stripe.plan].name} - $#{plans[user.stripe.plan].price}
+      .form-group
+        label.col-sm-3.control-label(for='name') Last 4
+        .col-sm-4
+          p.form-control-static #{user.stripe.last4}
+      .form-group
+        label.col-sm-3.control-label(for='gender') Gender
+        .col-sm-4
+          .radio
+            label 
+              input(type='radio',  name='gender', value='male', data-toggle='radio', checked=(user.profile.gender === 'male'? "checked" : undefined))
+              span Male
+          .radio
+            label
+              input(type='radio', name='gender', value='female', data-toggle='radio', checked=(user.profile.gender === 'female'? "checked" : undefined))
+              span Female
+      .form-group
+        label.col-sm-3.control-label(for='location') Location
+        .col-sm-4
+          input#location.form-control(type='text', name='location', value='#{user.profile.location}')
+      .form-group
+        label.col-sm-3.control-label(for='website') Website
+        .col-sm-4
+          input#website.form-control(type='text', name='website', value='#{user.profile.website}')
+      .form-group
+        label.col-sm-3.control-label(for='gravatar') Gravatar
+        .col-sm-4
+          img.profile(src='#{user.gravatar()}', width='100', height='100')
+      .form-group
+        .col-sm-offset-3.col-sm-4
+          button.btn.btn-primary(type='submit')
+            span.ion-edit
+            | Update Profile
+    .page-header
+      h3 Password
+    form.form-horizontal(action='/user/password', method='POST')
+      .form-group
+        label.col-sm-3.control-label(for='password') New Password
+        .col-sm-4
+          input.form-control(type='password', name='password')
+      .form-group
+        label.col-sm-3.control-label(for='confirm') Confirm Password
+        .col-sm-4
+          input.form-control(type='password', name='confirm')
+      .form-group
+        .col-sm-offset-3.col-sm-4
+          button.btn.btn-primary(type='submit') Update Password
+    .page-header
+      h3 Delete Account
+    form.form-horizontal(action='/user/delete', method='POST')
+      .form-group
+        .col-sm-offset-3.col-sm-4
+          button.btn.btn-danger(type='submit') Delete Account

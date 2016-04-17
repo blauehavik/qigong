@@ -1,0 +1,19 @@
+.container-fluid(style='max-width: 900px;')
+  if error
+  .alert.alert-danger(role='alert')
+    p #{error}
+  if messages.errors
+  .alert.alert-danger(role='alert')
+    ul
+    for error in messages.errors
+      li #{error.msg || error}
+  if messages.info
+  .alert.alert-info(role='alert')
+    ul
+    for info in messages.info
+      li #{info.msg || info}
+  if messages.success
+  .alert.alert-success(role='alert')
+    ul
+    for success in messages.success
+      li #{success.msg || success}
